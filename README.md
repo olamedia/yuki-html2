@@ -3,7 +3,7 @@ yuki-html2
 
 Lightweight version, php 5.4+
 
-The main purpose is to generate editable lightweight HTML to pass further. (generating img tag on a Model level, adding style or other attributes on the View level)
+The main purpose is to generate editable lightweight HTML to pass further. (For example, generating img tag on a Model level, adding style or other attributes on the View level - model usually knows how to construct an url, so it can generate simple impersonal tag)
 
 
 ```php
