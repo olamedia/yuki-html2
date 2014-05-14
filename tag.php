@@ -6,6 +6,7 @@ class tag implements \ArrayAccess{
 	public $name = '';
 	public $attributes = [];
 	public $innerHtml = null;
+	private static $_selfClosing = ['img', 'br', 'hr', 'input', 'link', 'meta', 'param'];
 	public function __construct($name){
 		$this->name = $name;
 		$this->innerHtml = new nodeList();
@@ -55,8 +56,11 @@ class tag implements \ArrayAccess{
 		foreach ($this->attributes as $k => $v){
 			$a[] = $k.'="'.\htmlspecialchars($v).'"';
 		}
-		$op = '<'.\implode(' ', $a).'>';
+		$op = '<'.\implode(' ', $a);
+		if (\in_array($this->name, self::$_selfClosing)){
+			return $op.' />';
+		}
 		$close = '</'.$this->name.'>';
-		return $op.$this->innerHtml.$close;
+		return $op.'>'.$this->innerHtml.$close;
 	}
 }
