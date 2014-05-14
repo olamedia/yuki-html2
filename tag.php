@@ -23,18 +23,10 @@ class tag implements \ArrayAccess{
 	}
 	public function offsetSet($i, $value) {
 		if (null === $i){
-			return $this->append($value);
+			$this->innerHtml[] = $value;
+			return;
 		}
 		$this->attributes[$i] = $value;
-	}
-	public function append($html){
-		if (\is_array($html) || $html instanceof \Traversable){
-			foreach ($html as $node){
-				$this->innerHtml->nodes[] = $node;
-			}
-		}else{
-			$this->innerHtml->nodes[] = $html;
-		}
 	}
 	public function text($text = null){
 		if (null === $text){
@@ -48,7 +40,7 @@ class tag implements \ArrayAccess{
 			return $this->innerHtml;
 		}
 		$this->innerHtml = new nodeList();
-		$this->append($html);
+		$this->innerHtml[] = $html;
 	}
 	public function __toString(){
 		$a = [];
